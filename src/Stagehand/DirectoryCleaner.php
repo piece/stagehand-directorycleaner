@@ -78,8 +78,9 @@ class Stagehand_DirectoryCleaner
 
     /**
      * @param string $path
+     * @param boolean $recursive (default true)
      */
-    public function clean($path)
+    public function clean($path, $recursive = true)
     {
         foreach (new DirectoryIterator($path) as $fileInfo) {
             if ($fileInfo->isDot()) {
@@ -87,8 +88,10 @@ class Stagehand_DirectoryCleaner
             }
 
             if ($fileInfo->isDir()) {
-                self::clean($fileInfo->getPathname());
-                rmdir($fileInfo->getPathname());
+                if ($recursive) {
+                    self::clean($fileInfo->getPathname());
+                    rmdir($fileInfo->getPathname());
+                }
             } else {
                 unlink($fileInfo->getPathname());
             }

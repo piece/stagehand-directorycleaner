@@ -91,13 +91,21 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
+        @unlink($this->directory . '/path/to/baz.txt');
+        @rmdir($this->directory . '/path/to');
+
+        @unlink($this->directory . '/path/foo.txt');
+        @unlink($this->directory . '/path/bar.txt');
+        @rmdir($this->directory . '/path');
+
+        @unlink($this->directory . '/example.txt');
         rmdir($this->directory);
     }
 
     /**
      * @test
      */
-    public function clean()
+    public function cleanADirectory()
     {
         $this->assertFileExists($this->directory . '/example.txt');
         $this->assertFileExists($this->directory . '/path');
@@ -115,6 +123,29 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
         $this->assertFileNotExists($this->directory . '/path/foo.txt');
         $this->assertFileNotExists($this->directory . '/path/bar.txt');
         $this->assertFileNotExists($this->directory . '/path/to/baz.txt');
+    }
+
+    /**
+     * @test
+     */
+    public function cleanADirectoryWithNotRecursiveMode()
+    {
+        $this->assertFileExists($this->directory . '/example.txt');
+        $this->assertFileExists($this->directory . '/path');
+        $this->assertFileExists($this->directory . '/path/to');
+        $this->assertFileExists($this->directory . '/path/foo.txt');
+        $this->assertFileExists($this->directory . '/path/bar.txt');
+        $this->assertFileExists($this->directory . '/path/to/baz.txt');
+
+        $cleaner = new Stagehand_DirectoryCleaner();
+        $cleaner->clean($this->directory, false);
+
+        $this->assertFileNotExists($this->directory . '/example.txt');
+        $this->assertFileExists($this->directory . '/path');
+        $this->assertFileExists($this->directory . '/path/to');
+        $this->assertFileExists($this->directory . '/path/foo.txt');
+        $this->assertFileExists($this->directory . '/path/bar.txt');
+        $this->assertFileExists($this->directory . '/path/to/baz.txt');
     }
 
     /**#@-*/
