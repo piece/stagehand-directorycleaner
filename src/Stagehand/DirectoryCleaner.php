@@ -89,7 +89,7 @@ class Stagehand_DirectoryCleaner
 
             if ($fileInfo->isDir()) {
                 if ($recursive) {
-                    self::clean($fileInfo->getPathname());
+                    $this->clean($fileInfo->getPathname());
                     rmdir($fileInfo->getPathname());
                 }
             } else {
