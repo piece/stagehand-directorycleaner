@@ -99,7 +99,7 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function cleanADirectory()
+    public function cleanADirectoryRecursively()
     {
         $this->assertFileExists($this->directory . '/example.txt');
         $this->assertFileExists($this->directory . '/first');
@@ -122,7 +122,7 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function cleanADirectoryWithNotRecursiveMode()
+    public function cleanADirectoryNotRecursively()
     {
         $this->assertFileExists($this->directory . '/example.txt');
         $this->assertFileExists($this->directory . '/first');
