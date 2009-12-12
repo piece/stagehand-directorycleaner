@@ -82,21 +82,21 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
 
         touch($this->directory . '/example.txt');
 
-        mkdir($this->directory . '/path');
-        mkdir($this->directory . '/path/to');
-        touch($this->directory . '/path/foo.txt');
-        touch($this->directory . '/path/bar.txt');
-        touch($this->directory . '/path/to/baz.txt');
+        mkdir($this->directory . '/first');
+        mkdir($this->directory . '/first/second');
+        touch($this->directory . '/first/foo.txt');
+        touch($this->directory . '/first/bar.txt');
+        touch($this->directory . '/first/second/baz.txt');
     }
 
     public function tearDown()
     {
-        @unlink($this->directory . '/path/to/baz.txt');
-        @rmdir($this->directory . '/path/to');
+        @unlink($this->directory . '/first/second/baz.txt');
+        @rmdir($this->directory . '/first/second');
 
-        @unlink($this->directory . '/path/foo.txt');
-        @unlink($this->directory . '/path/bar.txt');
-        @rmdir($this->directory . '/path');
+        @unlink($this->directory . '/first/foo.txt');
+        @unlink($this->directory . '/first/bar.txt');
+        @rmdir($this->directory . '/first');
 
         @unlink($this->directory . '/example.txt');
         rmdir($this->directory);
@@ -108,21 +108,21 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
     public function cleanADirectory()
     {
         $this->assertFileExists($this->directory . '/example.txt');
-        $this->assertFileExists($this->directory . '/path');
-        $this->assertFileExists($this->directory . '/path/to');
-        $this->assertFileExists($this->directory . '/path/foo.txt');
-        $this->assertFileExists($this->directory . '/path/bar.txt');
-        $this->assertFileExists($this->directory . '/path/to/baz.txt');
+        $this->assertFileExists($this->directory . '/first');
+        $this->assertFileExists($this->directory . '/first/second');
+        $this->assertFileExists($this->directory . '/first/foo.txt');
+        $this->assertFileExists($this->directory . '/first/bar.txt');
+        $this->assertFileExists($this->directory . '/first/second/baz.txt');
 
         $cleaner = new Stagehand_DirectoryCleaner();
         $cleaner->clean($this->directory);
 
         $this->assertFileNotExists($this->directory . '/example.txt');
-        $this->assertFileNotExists($this->directory . '/path');
-        $this->assertFileNotExists($this->directory . '/path/to');
-        $this->assertFileNotExists($this->directory . '/path/foo.txt');
-        $this->assertFileNotExists($this->directory . '/path/bar.txt');
-        $this->assertFileNotExists($this->directory . '/path/to/baz.txt');
+        $this->assertFileNotExists($this->directory . '/first');
+        $this->assertFileNotExists($this->directory . '/first/second');
+        $this->assertFileNotExists($this->directory . '/first/foo.txt');
+        $this->assertFileNotExists($this->directory . '/first/bar.txt');
+        $this->assertFileNotExists($this->directory . '/first/second/baz.txt');
     }
 
     /**
@@ -131,21 +131,21 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
     public function cleanADirectoryWithNotRecursiveMode()
     {
         $this->assertFileExists($this->directory . '/example.txt');
-        $this->assertFileExists($this->directory . '/path');
-        $this->assertFileExists($this->directory . '/path/to');
-        $this->assertFileExists($this->directory . '/path/foo.txt');
-        $this->assertFileExists($this->directory . '/path/bar.txt');
-        $this->assertFileExists($this->directory . '/path/to/baz.txt');
+        $this->assertFileExists($this->directory . '/first');
+        $this->assertFileExists($this->directory . '/first/second');
+        $this->assertFileExists($this->directory . '/first/foo.txt');
+        $this->assertFileExists($this->directory . '/first/bar.txt');
+        $this->assertFileExists($this->directory . '/first/second/baz.txt');
 
         $cleaner = new Stagehand_DirectoryCleaner();
         $cleaner->clean($this->directory, false);
 
         $this->assertFileNotExists($this->directory . '/example.txt');
-        $this->assertFileExists($this->directory . '/path');
-        $this->assertFileExists($this->directory . '/path/to');
-        $this->assertFileExists($this->directory . '/path/foo.txt');
-        $this->assertFileExists($this->directory . '/path/bar.txt');
-        $this->assertFileExists($this->directory . '/path/to/baz.txt');
+        $this->assertFileExists($this->directory . '/first');
+        $this->assertFileExists($this->directory . '/first/second');
+        $this->assertFileExists($this->directory . '/first/foo.txt');
+        $this->assertFileExists($this->directory . '/first/bar.txt');
+        $this->assertFileExists($this->directory . '/first/second/baz.txt');
     }
 
     /**#@-*/
