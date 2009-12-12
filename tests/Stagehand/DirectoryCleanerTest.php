@@ -77,7 +77,7 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->directory = dirname(__FILE__) . '/DirectoryCleanerTest';
+        $this->directory = dirname(__FILE__) . '/../../tmp/' . get_class($this);
         mkdir($this->directory);
 
         touch($this->directory . '/example.txt');
