@@ -61,7 +61,7 @@ class Stagehand_DirectoryCleaner
      * @access protected
      */
 
-    protected $recursive;
+    protected $recursivelyCleans;
     protected $root;
     protected $keepsRoot = true;
 
@@ -82,12 +82,12 @@ class Stagehand_DirectoryCleaner
 
     /**
      * @param string  $path
-     * @param boolean $recursive (default true)
+     * @param boolean $recursivelyCleans (default true)
      */
-    public function clean($path, $recursive = true)
+    public function clean($path, $recursivelyCleans = true)
     {
         $this->root = $path;
-        $this->recursive = $recursive;
+        $this->recursivelyCleans = $recursivelyCleans;
         $this->cleanElements($this->root);
         if (!$this->keepsRoot) {
             rmdir($this->root);
@@ -125,7 +125,7 @@ class Stagehand_DirectoryCleaner
             }
 
             if ($fileInfo->isDir()) {
-                if ($this->recursive) {
+                if ($this->recursivelyCleans) {
                     $this->cleanElements($fileInfo->getPathname());
                     rmdir($fileInfo->getPathname());
                 }
