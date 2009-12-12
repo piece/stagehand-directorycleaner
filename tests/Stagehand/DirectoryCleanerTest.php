@@ -91,15 +91,9 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        @unlink($this->directory . '/first/second/baz.txt');
-        @rmdir($this->directory . '/first/second');
-
-        @unlink($this->directory . '/first/foo.txt');
-        @unlink($this->directory . '/first/bar.txt');
-        @rmdir($this->directory . '/first');
-
-        @unlink($this->directory . '/example.txt');
-        rmdir($this->directory);
+        $cleaner = new Stagehand_DirectoryCleaner();
+        $cleaner->setKeepsRoot(false);
+        $cleaner->clean($this->directory);
     }
 
     /**
