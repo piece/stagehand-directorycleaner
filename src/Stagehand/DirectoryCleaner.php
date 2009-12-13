@@ -61,8 +61,6 @@ class Stagehand_DirectoryCleaner
      * @access protected
      */
 
-    protected $recursivelyCleans;
-    protected $root;
     protected $keepsRoot = true;
 
     /**#@-*/
@@ -86,11 +84,10 @@ class Stagehand_DirectoryCleaner
      */
     public function clean($path, $recursivelyCleans = true)
     {
-        $this->root = $path;
-        $this->recursivelyCleans = $recursivelyCleans;
-        $this->cleanElements($this->root);
+        $this->cleanElements($path, $recursivelyCleans);
+
         if (!$this->keepsRoot) {
-            rmdir($this->root);
+            rmdir($path);
         }
     }
 
@@ -115,9 +112,10 @@ class Stagehand_DirectoryCleaner
     // {{{ clean()
 
     /**
-     * @param string $path
+     * @param string  $path
+     * @param boolean $recursivelyCleans
      */
-    protected function cleanElements($path)
+    protected function cleanElements($path, $recursivelyCleans)
     {
         foreach (new DirectoryIterator($path) as $fileInfo) {
             if ($fileInfo->isDot()) {
@@ -125,8 +123,10 @@ class Stagehand_DirectoryCleaner
             }
 
             if ($fileInfo->isDir()) {
-                if ($this->recursivelyCleans) {
-                    $this->cleanElements($fileInfo->getPathname());
+                if ($recursivelyCleans) {
+                    $this->cleanElements($fileInfo->getPathname(),
+                                         $recursivelyCleans
+                                         );
                     rmdir($fileInfo->getPathname());
                 }
             } else {
