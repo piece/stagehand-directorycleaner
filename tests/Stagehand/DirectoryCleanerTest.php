@@ -92,7 +92,7 @@ class Stagehand_DirectoryCleanerTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $cleaner = new Stagehand_DirectoryCleaner();
-        $cleaner->setKeepsRoot(false);
+        $cleaner->setRemovesRoot(true);
         $cleaner->clean($this->directory);
     }
 

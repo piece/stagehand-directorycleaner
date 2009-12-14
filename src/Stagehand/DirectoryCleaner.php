@@ -61,7 +61,7 @@ class Stagehand_DirectoryCleaner
      * @access protected
      */
 
-    protected $keepsRoot = true;
+    protected $removesRoot = false;
 
     /**#@-*/
 
@@ -86,20 +86,20 @@ class Stagehand_DirectoryCleaner
     {
         $this->cleanElements($path, $recursivelyCleans);
 
-        if (!$this->keepsRoot) {
+        if ($this->removesRoot) {
             rmdir($path);
         }
     }
 
     // }}}
-    // {{{ setKeepsRoot()
+    // {{{ setRemovesRoot()
 
     /**
-     * @param boolean $keepsRoot
+     * @param boolean $removesRoot
      */
-    public function setKeepsRoot($keepsRoot)
+    public function setRemovesRoot($removesRoot)
     {
-        $this->keepsRoot = $keepsRoot;
+        $this->removesRoot = $removesRoot;
     }
 
     /**#@-*/
