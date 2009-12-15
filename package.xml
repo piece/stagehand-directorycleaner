@@ -13,11 +13,11 @@
   <email>mbarracuda@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-10-28</date>
- <time>00:26:03</time>
+ <date>2009-12-16</date>
+ <time>00:03:14</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -25,7 +25,16 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-The first release of Stagehand_DirectoryCleaner.
+What&apos;s New in Stagehand_DirectoryCleaner 1.1.0
+
+ * Removes the root directory:
+
+  A new feature removes the root (initially specified) directory with cleaning.
+
+    &lt;?php
+    $cleaner = new Stagehand_DirectoryCleaner();
+    $cleaner-&gt;setRemovesRoot(true);
+    $cleaner-&gt;clean(&apos;/path/to/directory&apos;);
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -47,6 +56,11 @@ The first release of Stagehand_DirectoryCleaner.
       <tasks:replace from="@package_version@" to="version" type="package-info" />
      </file>
     </dir> <!-- /tests/Stagehand -->
+    <dir name="tmp">
+     <file name="dummy" role="test">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /tests/tmp -->
     <file name="prepare.php" role="test">
      <tasks:replace from="@package_version@" to="version" type="package-info" />
     </file>
@@ -65,6 +79,30 @@ The first release of Stagehand_DirectoryCleaner.
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-12-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+What&apos;s New in Stagehand_DirectoryCleaner 1.1.0
+
+ * Removes the root directory:
+
+  A new feature removes the root (initially specified) directory with cleaning.
+
+    &lt;?php
+    $cleaner = new Stagehand_DirectoryCleaner();
+    $cleaner-&gt;setRemovesRoot(true);
+    $cleaner-&gt;clean(&apos;/path/to/directory&apos;);
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.0</release>

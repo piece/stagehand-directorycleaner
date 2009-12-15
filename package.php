@@ -40,11 +40,21 @@ require_once 'PEAR.php';
  
 PEAR::staticPushErrorHandling(PEAR_ERROR_CALLBACK, create_function('$error', 'var_dump($error); exit();'));
  
-$releaseVersion = '1.0.0';
+$releaseVersion = '1.1.0';
 $releaseStability = 'stable';
-$apiVersion = '1.0.0';
+$apiVersion = '1.1.0';
 $apiStability = 'stable';
-$notes = 'The first release of Stagehand_DirectoryCleaner.';
+$notes = 'What\'s New in Stagehand_DirectoryCleaner 1.1.0
+
+ * Removes the root directory:
+
+  A new feature removes the root (initially specified) directory with cleaning.
+
+    <?php
+    $cleaner = new Stagehand_DirectoryCleaner();
+    $cleaner->setRemovesRoot(true);
+    $cleaner->clean(\'/path/to/directory\');
+';
  
 $package = new PEAR_PackageFileManager2();
 $package->setOptions(array('filelistgenerator' => 'file',
